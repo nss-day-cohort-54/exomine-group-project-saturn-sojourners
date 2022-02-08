@@ -16,8 +16,8 @@ colonies: [
     {id:3, name:"Ukraine"},
     {id:4, name:"America"},
     {id:5, name:"Japan"},
-    {id:6, name:"Netherlands"},
-    ],
+    {id:6, name:"Netherlands"}
+],
 
 //create facilities array
 facilities: [
@@ -27,7 +27,6 @@ facilities: [
     {id:4, name: "Henry's bedazzle shop", active: true},
     {id:5, name: "Steve's Buscemi", active: true}
 ],
-
 
 //create minerals array
 minerals: [
@@ -51,6 +50,7 @@ facilityMinerals: [
     {id:5, facilityId:1, mineralId:4, quantity: 34}
 ],
 
+//create colonyMinerals array
 colonyMinerals: [
     {id:1, colonyId:2, mineralId:1, quantity: 85},
     {id:2, colonyId:1, mineralId:4, quantity: 185},
@@ -59,27 +59,46 @@ colonyMinerals: [
     {id:5, colonyId:4, mineralId:4, quantity: 150}
 ],
 
-    transientState: {}
+transientState: {}
+
 }
 
 
-//make setter functions that add the selection to transientState object
+//export Governors data table
+export const getGovernors = () => {
+    return database.governors.map(governor => ({...governor}))
+}
 
+//export Colonies data table
+export const getColonies = () => {
+    return database.colonies.map(colony => ({...colony}))
+}
+
+//export Faciliies data table
+export const getFacilities = () => {
+    return database.facilities.map(facility => ({...facility}))
+}
+
+//export Minerals data table
+export const getMinerals = () => {
+    return database.minerals.map(mineral => ({...mineral}))
+}
+
+//export Purchases data table
+export const getPurchases = () => {
+    return database.purchases.map(purchase => ({...purchase}))
+}
+
+//make setter functions that add the selection to transientState object
 export const setFacility = (facilityId) => {
     database.transientState.selectedFacility = facilityId
     document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 
 
-//make getter functions
 
-export const getFacilities = () => {
-    return database.facilities.map(f => ({...f}))
-}
-
-
-// add 1 ton of selected mineral to colony minerals
-// subtract one ton of selected mineral from facility
+// add 1 ton to colonyMinerals' quantity
+// subtract 1 ton to facilityMinerals' quantity
 export const purchaseMineral = () => {
 
 //create a variable newOrder, set its value as ...database.transientState}
