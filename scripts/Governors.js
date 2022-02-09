@@ -1,5 +1,6 @@
 //import getter and setter functions from database.js
 import { getGovernors, setGovernor } from "./database.js";
+import { FacilitiesDropdown } from "./Facilities.js"
 
 
 
@@ -38,7 +39,8 @@ document.addEventListener(
       const itemClicked = changeEvent.target
       if (itemClicked.id.startsWith("governor")) {
          const [, governorId] = itemClicked.value.split("--")
-         setGovernor(parseInt(governorId))
+      setGovernor(parseInt(governorId))
+      document.querySelector(".facilities").innerHTML = FacilitiesDropdown()
       }
    }
 
