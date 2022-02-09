@@ -5,6 +5,14 @@
 
 //set  mainContainer.innerHTML = Exomine()
 
-import { FacilitiesDropdown} from "./Facilities.js"
+import { ColonyMinerals} from "./ColonyMinerals.js"
+import { governorsDropdown } from "./Governors.js"
+import { html } from "./Exomine.js"
 
-FacilitiesDropdown()
+const mainContainer = document.querySelector("#container")
+
+const display = () => {
+    mainContainer.innerHTML = html()
+}
+
+display()

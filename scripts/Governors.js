@@ -2,10 +2,10 @@
 import { getGovernors, setGovernor } from "./database.js";
 
 
-
+ 
 //set the imported functions equal to a new variable
 const governorsArray = getGovernors()
-
+const activeGovernors = governorsArray.filter(governor => governor.active === true)
 
 export const governorsDropdown = () => {
 
@@ -18,7 +18,7 @@ export const governorsDropdown = () => {
 
 
     //use filter() to filter active governors
-  const activeGovernors = governorsArray.filter(governor => governor.active === true) 
+ 
 
 
   //use a for loop to display all active governors
@@ -41,12 +41,13 @@ document.addEventListener(
 
 
               //invoke setGovernors function every time one is clicked
-           for (const activeGovernor of activeGovernors) {
-               if (governor.id === parseInt(governorId)) {
+             
                   setGovernor(parseInt(governorId))
                }
-           }
-       }
+           
+           
+       
+      
    }
 )
 
