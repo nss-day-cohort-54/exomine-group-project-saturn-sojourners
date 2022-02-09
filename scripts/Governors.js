@@ -1,23 +1,56 @@
-//import getter function from database.js
-//import setter function as well
+//import getter and setter functions from database.js
+import { getGovernors, setGovernor } from "./database.js";
 
 
 
-//put the following comments' code inside select element
+//set the imported functions equal to a new variable
+const governorsArray = getGovernors()
 
-   //set the imported functions equal to new variables
 
-   //use filter() to filter active governors
+export const governorsDropdown = () => {
 
-   //use map() to display all active governors
+   let html = "<h2>Choose a governor</h2>"
 
-   //invoke setGovernors function every time one is clicked
+   html += '<select id="governor">'
 
-   //create options tag for dropdown
+      //create options tag for dropdown
+   html += '<option value="0">Choose a governor...</option>'
+
+
+    //use filter() to filter active governors
+  const activeGovernors = governorsArray.filter(governor => governor.active === true) 
+
+
+  //use a for loop to display all active governors
+  for (const activeGovernor of activeGovernors) {
+     html += `<option value="governor--${activeGovernor.id}">${activeGovernor.name}</option>`
+  }
+  html += "</select>"
+  return html
+}
+
 
 
 //create a change event listener for the dropdown list
+document.addEventListener(
+   "change",
+   (changeEvent) => {
+       const itemClicked = changeEvent.target
+       if (itemClicked.id.startsWith("governor")) {
+           const [,governorId] = itemClicked.value.split("--")
+
+
+              //invoke setGovernors function every time one is clicked
+           for (const activeGovernor of activeGovernors) {
+               if (governor.id === parseInt(governorId)) {
+                  setGovernor(parseInt(governorId))
+               }
+           }
+       }
+   }
+)
+
+
+
 
 //when a governor is selected, make facilities dropdown active
-
-//m
