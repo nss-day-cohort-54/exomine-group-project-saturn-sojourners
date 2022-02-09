@@ -90,6 +90,11 @@ export const setFacility = (facilityId) => {
 }
 
 
+export const setGovernor = (governorId) => {
+    database.transientState.selectedGovernory = governorId
+    document.dispatchEvent( new CustomEvent("stateChanged") )
+}
+
 
 // add 1 ton to colonyMinerals' quantity
 // subtract 1 ton to facilityMinerals' quantity
