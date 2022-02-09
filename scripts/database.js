@@ -36,11 +36,6 @@ minerals: [
     {id:4, material: "Bedazzles"}
 ],
 
-//create purchases array
-purchases: [
-    {id:1, colonyId:2, mineralId:3, quantity: 90}
-],
-
 //create facilityMinerals array
 facilityMinerals: [
     {id:1, facilityId:2, mineralId:1, quantity: 85},
@@ -82,11 +77,6 @@ export const getFacilities = () => {
 //export Minerals data table
 export const getMinerals = () => {
     return database.minerals.map(mineral => ({...mineral}))
-}
-
-//export Purchases data table
-export const getPurchases = () => {
-    return database.purchases.map(purchase => ({...purchase}))
 }
 
 //make setter functions that add the selection to transientState object
