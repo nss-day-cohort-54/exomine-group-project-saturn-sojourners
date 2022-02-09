@@ -13,20 +13,20 @@ export const governorsDropdown = () => {
 
    html += '<select id="governor">'
 
-      //create options tag for dropdown
+   //create options tag for dropdown
    html += '<option value="0">Choose a governor...</option>'
 
 
-    //use filter() to filter active governors
-  const activeGovernors = governorsArray.filter(governor => governor.active === true) 
+   //use filter() to filter active governors
+   const activeGovernors = governorsArray.filter(governor => governor.active === true)
 
 
-  //use a for loop to display all active governors
-  for (const activeGovernor of activeGovernors) {
-     html += `<option value="governor--${activeGovernor.id}">${activeGovernor.name}</option>`
-  }
-  html += "</select>"
-  return html
+   //use a for loop to display all active governors
+   for (const activeGovernor of activeGovernors) {
+      html += `<option value="governor--${activeGovernor.id}">${activeGovernor.name}</option>`
+   }
+   html += "</select>"
+   return html
 }
 
 
@@ -35,19 +35,13 @@ export const governorsDropdown = () => {
 document.addEventListener(
    "change",
    (changeEvent) => {
-       const itemClicked = changeEvent.target
-       if (itemClicked.id.startsWith("governor")) {
-           const [,governorId] = itemClicked.value.split("--")
-
-
-              //invoke setGovernors function every time one is clicked
-           for (const activeGovernor of activeGovernors) {
-               if (governor.id === parseInt(governorId)) {
-                  setGovernor(parseInt(governorId))
-               }
-           }
-       }
+      const itemClicked = changeEvent.target
+      if (itemClicked.id.startsWith("governor")) {
+         const [, governorId] = itemClicked.value.split("--")
+         setGovernor(parseInt(governorId))
+      }
    }
+
 )
 
 

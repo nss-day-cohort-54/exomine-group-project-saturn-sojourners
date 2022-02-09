@@ -33,7 +33,7 @@ eventHub.addEventListener("change", event => {
    if (event.target.id.startsWith("facility--")) {
       const [,facilityId] = event.target.id.split("--")
       //invoke setFacility function every time one is clicked
-      setFacility(facilityId)
+      setFacility(parseInt(facilityId))
    }
 })
 
