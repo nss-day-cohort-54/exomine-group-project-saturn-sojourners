@@ -75,6 +75,14 @@ export const getMinerals = () => {
     return database.minerals.map(mineral => ({...mineral}))
 }
 
+export const getColonyMinerals = () => {
+    return database.colonyMinerals.map(colonyMineral => ({...colonyMineral}))
+}
+
+export const getFacilityMinerals = () => {
+    return database.facilityMinerals.map(facilityMineral => ({...facilityMineral}))
+}
+
 //make setter functions that add the selection to transientState object
 export const setFacility = (facilityId) => {
     database.transientState.selectedFacility = facilityId
