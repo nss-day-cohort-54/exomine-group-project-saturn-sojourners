@@ -48,10 +48,6 @@ facilityMinerals: [
 //create colonyMinerals array
 colonyMinerals: [
     {id:1, colonyId:2, mineralId:1, quantity: 85},
-    {id:2, colonyId:1, mineralId:4, quantity: 185},
-    {id:3, colonyId:6, mineralId:3, quantity: 250},
-    {id:4, colonyId:5, mineralId:2, quantity: 850},
-    {id:5, colonyId:4, mineralId:4, quantity: 150}
 ],
 
 transientState: {}
