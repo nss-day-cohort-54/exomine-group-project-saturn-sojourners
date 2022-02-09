@@ -7,4 +7,6 @@
 
 //set  mainContainer.innerHTML = Exomine()
 
-//m
+import { FacilitiesDropdown} from "./Facilities.js"
+
+FacilitiesDropdown()

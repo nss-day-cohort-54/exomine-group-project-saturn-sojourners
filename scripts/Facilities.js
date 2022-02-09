@@ -1,6 +1,6 @@
 //import getter function from database.js
-import { getFacilities } from "./database.js";
 //import setter function as well
+import { getFacilities, setFacility } from "./database.js";
 
 
 
@@ -13,19 +13,30 @@ export const FacilitiesDropdown = () => {
    const activeFacilities = facilities.filter(facility => facility.active)
    
    //use map() to display all active facilities
-   return `
-   <select></select>
-   //invoke setFacility function every time one is clicked
-   active
    //create options tag for dropdown
-
-   `
-
+   return `
+   <h2>Facilities</h2>
+   <select class="facilitiesDropdown" id="facilitiesDropdown">
+      <option value="0">Select a facility...</option>
+      ${activeFacilities.map(facility => {
+         return `<option value=${facility.id}>${facility.name}</option>`
+         })
+      }.join("")
+   </select>
+`
 }
 
-//create a function passing a facilityId as an argument
+// change event for facilitiesDropdown
+const eventHub = document.querySelector("#container")
+
+eventHub.addEventListener("change", event => {
+   if (event.target.id === "facilitiesDropdown" ) {
+      //invoke setFacility function every time one is clicked
+      setFacility(event.target.value)
+   }
+})
+
 
 
    //filter to return an array of minerals provided by that facility 
 
-   //m
