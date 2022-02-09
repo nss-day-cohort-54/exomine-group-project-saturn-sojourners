@@ -19,7 +19,7 @@ export const FacilitiesDropdown = () => {
    <select class="facilitiesDropdown" id="facilitiesDropdown">
       <option value="0">Select a facility...</option>
       ${activeFacilities.map(facility => {
-         return `<option value=${facility.id}>${facility.name}</option>`
+         return `<option id="facility--${facility.id}">${facility.name}</option>`
          })
       }.join("")
    </select>
@@ -30,9 +30,10 @@ export const FacilitiesDropdown = () => {
 const eventHub = document.querySelector("#container")
 
 eventHub.addEventListener("change", event => {
-   if (event.target.id === "facilitiesDropdown" ) {
+   if (event.target.id.startsWith("facility--")) {
+      const [,facilityId] = event.target.id.split("--")
       //invoke setFacility function every time one is clicked
-      setFacility(event.target.value)
+      setFacility(facilityId)
    }
 })
 
