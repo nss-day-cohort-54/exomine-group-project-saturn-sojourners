@@ -34,7 +34,8 @@ eventHub.addEventListener("change", event => {
       const facilityId = event.target.value
       //invoke setFacility function every time one is clicked
       setFacility(parseInt(facilityId))
-      // document.dispatchEvent(new CustomEvent("facilitySelection"))
+      document.dispatchEvent(new CustomEvent("facilitySelection"))
+
    }
 })
 
