@@ -1,15 +1,13 @@
 //purpose is to show radio buttons for minerals produced by selected facility
 import { getMinerals, getFacilities, getFacilityMinerals } from "./database.js";
 
-
 document.addEventListener("facilitySelection", (event) => foundFacility())
 
-
-const foundFacility = (id) => {
-
-}
-
 export const FacilityMinerals = () => {
+    // get the selected facility id
+    // check if selected facility id is equal to facilityId 
+    // return an array of facilityMinerals that have that facilityId
+    // return a string with name of mineral and quantity of facility
     const minerals = getMinerals()
     const facilityMinerals = getFacilityMinerals()
     const facilities = getFacilities()
@@ -17,8 +15,6 @@ export const FacilityMinerals = () => {
     const findFacilityMineral = (facilityId) => {
         return facilityMinerals.filter(facilityMineral => facilityMineral.facilityId === facilityId)
     }
-
-
 
     let html = "<ul>"
     const listMinerals = facilities.filter(facility => {
