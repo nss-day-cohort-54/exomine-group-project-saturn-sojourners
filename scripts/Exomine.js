@@ -45,6 +45,10 @@ document.addEventListener(
     "click",
     (event) => {
         if (event.target.id === "orderButton") {
+            //take whats in shopping cart and make the caluculation for colonyMineral and facilityMineral quantity
+            //add one ton to colonyMineral and subtract one ton from facilityMineral
+            //update quantity of colonyMineral and facilityMineral in database.js
+            //GenerateHTML to display new state in DOM
             purchaseMineral()
         }
     }
