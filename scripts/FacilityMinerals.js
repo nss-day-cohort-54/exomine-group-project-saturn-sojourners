@@ -1,11 +1,11 @@
 //purpose is to show radio buttons for minerals produced by selected facility
 import { getMinerals, getFacilities, getFacilityMinerals,transientObject } from "./database.js";
-import { ExomineRefresh } from "./Exomine.js"
+import { renderRefresh } from "./main.js"
 
-// document.addEventListener(
-//     "stateChanged", 
-//     (event) => ExomineRefresh()
-// )
+document.addEventListener(
+    "facilitySelection", 
+    (event) => renderRefresh()
+)
 
 export const FacilityMinerals = () => {
     const minerals = getMinerals()
@@ -34,7 +34,7 @@ export const FacilityMinerals = () => {
         const foundMineralName = findMineralName(facility.mineralId)
             return `
             <li>
-                <input type="radio" name="facility" value="${facility.id}">${foundMineralName.material}
+                <input type="radio" name="facility" value="${facility.id}" />${facility.quantity} tons of ${foundMineralName.material}
             </li>`
         }        
     )
