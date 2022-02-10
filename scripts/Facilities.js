@@ -16,10 +16,10 @@ export const FacilitiesDropdown = () => {
    //create options tag for dropdown
    return `
    <h2>Facilities</h2>
-   <select class="facilitiesDropdown" id="facilitiesDropdown">
+   <select class="facilitiesDropdown" id="facility">
       <option value="0">Select a facility...</option>
       ${activeFacilities.map(facility => {
-         return `<option id="facility--${facility.id}">${facility.name}</option>`
+         return `<option value="${facility.id}">${facility.name}</option>`
          })
       }.join("")
    </select>
@@ -30,10 +30,11 @@ export const FacilitiesDropdown = () => {
 const eventHub = document.querySelector("#container")
 
 eventHub.addEventListener("change", event => {
-   if (event.target.id.startsWith("facility--")) {
-      const [,facilityId] = event.target.id.split("--")
+   if (event.target.id.startsWith("facility")) {
+      const [,facilityId] = event.target.value
       //invoke setFacility function every time one is clicked
       setFacility(parseInt(facilityId))
+      document.dispatchEvent(new CustomEvent("facilitySelection"))
    }
 })
 

@@ -41,13 +41,22 @@ facilityMinerals: [
     {id:1, facilityId:2, mineralId:1, quantity: 85},
     {id:2, facilityId:3, mineralId:3, quantity: 45},
     {id:3, facilityId:5, mineralId:2, quantity: 98},
-    {id:4, facilityId:4, mineralId:3, quantity: 102},
-    {id:5, facilityId:1, mineralId:4, quantity: 34}
+    {id:4, facilityId:2, mineralId:3, quantity: 102},
+    {id:5, facilityId:5, mineralId:4, quantity: 34},
+    {id:6, facilityId:3, mineralId:4, quantity: 44},
+    {id:7, facilityId:4, mineralId:4, quantity: 54}
 ],
 
 //create colonyMinerals array
 colonyMinerals: [
-    {id:1, colonyId:2, mineralId:1, quantity: 85},
+    {id:1, colonyId:2, mineralId:1, quantity: 0},
+    {id:2, colonyId:3, mineralId:2, quantity: 0},
+    {id:3, colonyId:5, mineralId:3, quantity: 0},
+    {id:4, colonyId:2, mineralId:3, quantity: 0},
+    {id:5, colonyId:3, mineralId:5, quantity: 0},
+    {id:6, colonyId:5, mineralId:1, quantity: 0},
+    {id:7, colonyId:2, mineralId:2, quantity: 0},
+    {id:8, colonyId:3, mineralId:3, quantity: 0}
 ],
 
 transientState: {}
@@ -75,6 +84,14 @@ export const getMinerals = () => {
     return database.minerals.map(mineral => ({...mineral}))
 }
 
+export const getColonyMinerals = () => {
+    return database.colonyMinerals.map(colonyMineral => ({...colonyMineral}))
+}
+
+export const getFacilityMinerals = () => {
+    return database.facilityMinerals.map(facilityMineral => ({...facilityMineral}))
+}
+
 //make setter functions that add the selection to transientState object
 export const setFacility = (facilityId) => {
     database.transientState.selectedFacility = facilityId
@@ -86,6 +103,9 @@ export const setGovernor = (governorId) => {
     database.transientState.selectedGovernory = governorId
     document.dispatchEvent( new CustomEvent("stateChanged") )
 }
+
+//export transientState data object
+export const transientObject = () => { return {...database.transientState}}
 
 
 // add 1 ton to colonyMinerals' quantity
