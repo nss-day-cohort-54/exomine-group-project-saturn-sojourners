@@ -1,6 +1,18 @@
 //purpose is to show radio buttons for minerals produced by selected facility
-import { getMinerals, getFacilities, getFacilityMinerals,transientObject } from "./database.js";
+import { getMinerals, getFacilities, getFacilityMinerals, transientObject, purchaseMineral, setQuantityFacilityMineral } from "./database.js";
 import { renderRefresh } from "./main.js"
+
+
+
+document.addEventListener(
+    "click",
+    (event) => {
+        if (event.target.id === "orderButton") {
+            purchaseMineral()
+        }
+    }
+)
+
 
 document.addEventListener(
     "facilitySelection", 
@@ -33,9 +45,9 @@ export const FacilityMinerals = () => {
     const listFacilityMinerals = filterFacility.map(facility => {
         const foundMineralName = findMineralName(facility.mineralId)
             return `
-            <li>
+            
                 <input type="radio" name="facility" value="${facility.id}" />${facility.quantity} tons of ${foundMineralName.material}
-            </li>`
+           `
         }        
     )
 
@@ -44,6 +56,24 @@ export const FacilityMinerals = () => {
     
     return html
 }
+
+
+
+
+document.addEventListener(
+    "change",
+    (event) => {
+        if (event.target.name === "facility") {
+           //add selected radio button mineral to shopping cart
+            
+        }
+    }
+)
+
+
+
+
+
 
 //create click event listener for purchase button
     //calls addpurchase function from database

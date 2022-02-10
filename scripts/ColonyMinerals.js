@@ -12,7 +12,7 @@ document.addEventListener(
 
 export const ColonyMinerals = () => {
     const minerals = getMinerals()
-    // const colonies = getColonies()
+     const colonies = getColonies()
     // const facilityMinerals = getFacilityMinerals()
     const colonyMinerals = getColonyMinerals()
     const transient = transientObject()
@@ -22,9 +22,10 @@ export const ColonyMinerals = () => {
 
     const filterGovernor = governors.find(governor => governor.id === selectedGovernor)
     if (!filterGovernor) {
-        return
+        return ""
     }
     const selectedColony = filterGovernor.colonyId
+    const colonyName = colonies.find(colony => colony.id === selectedColony)
 
     const filterColony = colonyMinerals.filter(colonyMineral => 
         colonyMineral.colonyId === selectedColony)
@@ -38,14 +39,14 @@ export const ColonyMinerals = () => {
     }
     
 
-    let html = `<h2>Blank</h2><ul>`
+    let html = `<h2>${colonyName.name}</h2><ul>`
 
     const listColonyMinerals = filterColony.map(colony => {
         const foundMineralName = findMineralName(colony.mineralId)
             return `
-            <li>
+           
                 <input type="radio" name="colony" value="${colony.id}" />${colony.quantity} tons of ${foundMineralName.material}
-            </li>`
+            `
         }        
     )
 
