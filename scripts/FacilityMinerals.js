@@ -46,7 +46,6 @@ export const FacilityMinerals = () => {
 }
 
 //create click event listener for purchase button
-
     //calls addpurchase function from database
 
 //create purchase button

@@ -33,7 +33,8 @@ minerals: [
     {id:1, material: "Gasoline"},
     {id:2, material: "Gem"},
     {id:3, material: "Van"},
-    {id:4, material: "Bedazzles"}
+    {id:4, material: "Bedazzles"},
+    {id:5, material: "Bologna"}
 ],
 
 //create facilityMinerals array
@@ -100,7 +101,7 @@ export const setFacility = (facilityId) => {
 
 
 export const setGovernor = (governorId) => {
-    database.transientState.selectedGovernory = governorId
+    database.transientState.selectedGovernor = governorId
     document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 
@@ -113,7 +114,7 @@ export const transientObject = () => { return {...database.transientState}}
 export const purchaseMineral = () => {
 
 //create a variable newOrder, set its value as ...database.transientState}
-
+    const newOrder = {...database.transientState}
 
 //add a new primary key to the object
 
@@ -125,11 +126,7 @@ export const purchaseMineral = () => {
 //reset the transientState object to an empty object
 
 
-        // Broadcast custom event to entire documement so that the
-        // application can re-render and update state
-        document.dispatchEvent( new CustomEvent("stateChanged") )
-    }
-
-
-
-    //m
+    // Broadcast custom event to entire documement so that the
+    // application can re-render and update state
+    document.dispatchEvent( new CustomEvent("stateChanged") )
+}
