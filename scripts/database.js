@@ -95,7 +95,7 @@ export const getFacilityMinerals = () => {
 //make setter functions that add the selection to transientState object
 export const setFacility = (facilityId) => {
     database.transientState.selectedFacility = facilityId
-    document.dispatchEvent( new CustomEvent("stateChanged") )
+    // document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 
 
