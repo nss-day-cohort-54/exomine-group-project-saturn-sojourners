@@ -3,6 +3,8 @@
 import { governorsDropdown } from "./Governors.js"
 import { FacilitiesDropdown } from "./Facilities.js"
 import { FacilityMinerals } from "./FacilityMinerals.js"
+import { purchaseMineral } from "./database.js"
+import { ColonyMinerals } from "./ColonyMinerals.js"
 
 export const ExomineDropdowns = () => {
     return `
@@ -25,11 +27,25 @@ export const ExomineRefresh = () => {
         </div>
         <div class="purchase-button">
             <h2>Shopping Cart</h2>
-
+            <button id="orderButton">Purchase Mineral</button>
         </div>
     </section>
-
-    <div class="colony-mineral"></div>
     `
 }
 
+export const ExomineOrderRefresh = () => {
+    return `
+    <div class="colony-mineral">
+        ${ColonyMinerals()}
+    </div>
+    `
+}
+
+document.addEventListener(
+    "click",
+    (event) => {
+        if (event.target.id === "orderButton") {
+            purchaseMineral()
+        }
+    }
+)

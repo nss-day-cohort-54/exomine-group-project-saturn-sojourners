@@ -41,6 +41,7 @@ document.addEventListener(
          const governorId = itemClicked.value
       setGovernor(parseInt(governorId))
       document.querySelector(".facilities").innerHTML = FacilitiesDropdown()
+      document.dispatchEvent(new CustomEvent("governorSelection"))
       }
    }
 

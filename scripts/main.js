@@ -1,10 +1,11 @@
-import { ExomineDropdowns, ExomineRefresh } from "./Exomine.js"
+import { ExomineDropdowns, ExomineOrderRefresh, ExomineRefresh } from "./Exomine.js"
 import { governorsDropdown } from "./Governors.js"
 import { FacilitiesDropdown } from "./Facilities.js"
 import { FacilityMinerals } from "./FacilityMinerals.js"
 
 const mainContainer = document.querySelector("#container")
 const secondContainer = document.querySelector("#second-container")
+const thirdContianer = document.querySelector("#third-container")
 
 const render = () => {
     mainContainer.innerHTML = ExomineDropdowns()  
@@ -17,6 +18,12 @@ export const renderRefresh = () => {
 }
 
 renderRefresh()
+
+export const renderOrder = () => {
+    thirdContianer.innerHTML = ExomineOrderRefresh()
+}
+
+renderOrder()
 
 
 //create custom event listener, listening for "stateChanged"
