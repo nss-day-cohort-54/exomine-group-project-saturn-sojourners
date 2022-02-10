@@ -31,10 +31,10 @@ const eventHub = document.querySelector("#container")
 
 eventHub.addEventListener("change", event => {
    if (event.target.id.startsWith("facility")) {
-      const [,facilityId] = event.target.value
+      const facilityId = event.target.value
       //invoke setFacility function every time one is clicked
       setFacility(parseInt(facilityId))
-      document.dispatchEvent(new CustomEvent("facilitySelection"))
+      // document.dispatchEvent(new CustomEvent("facilitySelection"))
    }
 })
 

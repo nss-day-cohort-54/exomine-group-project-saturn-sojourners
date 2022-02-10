@@ -38,7 +38,7 @@ document.addEventListener(
    (changeEvent) => {
       const itemClicked = changeEvent.target
       if (itemClicked.id.startsWith("governor")) {
-         const [, governorId] = itemClicked.value
+         const governorId = itemClicked.value
       setGovernor(parseInt(governorId))
       document.querySelector(".facilities").innerHTML = FacilitiesDropdown()
       }
