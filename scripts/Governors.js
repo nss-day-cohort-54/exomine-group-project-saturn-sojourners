@@ -24,7 +24,7 @@ export const governorsDropdown = () => {
 
    //use a for loop to display all active governors
    for (const activeGovernor of activeGovernors) {
-      html += `<option value="governor--${activeGovernor.id}">${activeGovernor.name}</option>`
+      html += `<option value="${activeGovernor.id}">${activeGovernor.name}</option>`
    }
    html += "</select>"
    return html
@@ -38,7 +38,7 @@ document.addEventListener(
    (changeEvent) => {
       const itemClicked = changeEvent.target
       if (itemClicked.id.startsWith("governor")) {
-         const [, governorId] = itemClicked.value.split("--")
+         const [, governorId] = itemClicked.value
       setGovernor(parseInt(governorId))
       document.querySelector(".facilities").innerHTML = FacilitiesDropdown()
       }
