@@ -20,9 +20,13 @@ export const ExomineRefresh = () => {
     return `
     <section>
         <div class="facility-mineral">
+            <h2>Facility Minerals</h2>
             ${FacilityMinerals()}
         </div>
-        <div class="purchase-button"></div>
+        <div class="purchase-button">
+            <h2>Shopping Cart</h2>
+
+        </div>
     </section>
 
     <div class="colony-mineral"></div>
