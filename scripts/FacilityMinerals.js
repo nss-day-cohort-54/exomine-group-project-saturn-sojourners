@@ -13,6 +13,13 @@ document.addEventListener(
     (event) => renderCart()
 )
 
+document.addEventListener(
+    "materialPurchased",
+    (event) => renderRefresh()
+)
+
+
+
 export const FacilityMinerals = () => {
     const minerals = getMinerals()
     const facilityMinerals = getFacilityMinerals()
