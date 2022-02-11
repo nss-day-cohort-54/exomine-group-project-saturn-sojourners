@@ -117,18 +117,28 @@ export const setSelectedMineral = (id) => {
     database.transientState.selectedMineralId = id
 }
 
-export const setQuantityFacilityMineral = (quantity) => {
-    database.transientState.facilityMineralQuantity = quantity
+export const setQuantityFacilityMineral = (facilityId, mineralId, quantity) => {
+    // first iterate through colonyMineral array to match mineralId and colonyId
+    const facilityMinerals = getFacilityMinerals()
+    const findFacilityMineral = facilityMinerals.find(facilityMineral =>
+        facilityMineral.facilityId === facilityId &&
+        facilityMineral.mineralId === mineralId)
+    const foundFacilityMineralId = findFacilityMineral.id
+
+    const targetObj = database.facilityMinerals.find(facilityMineral => facilityMineral.id === foundFacilityMineralId)
+    targetObj.quantity = quantity
+
+    // then set quantity to equal the new quantity
 }
 
 export const setQuantityColonyMineral = (colonyId, mineralId, quantity) => {
     // first iterate through colonyMineral array to match mineralId and colonyId
     const colonyMinerals = getColonyMinerals()
-    const findColonyMineral = colonyMinerals.find(colonyMineral => 
-        colonyMineral.colonyId === colonyId && 
+    const findColonyMineral = colonyMinerals.find(colonyMineral =>
+        colonyMineral.colonyId === colonyId &&
         colonyMineral.mineralId === mineralId)
     const foundColonyMineralId = findColonyMineral.id
-    
+
     const targetObj = database.colonyMinerals.find(colonyMineral => colonyMineral.id === foundColonyMineralId)
     targetObj.quantity = quantity
 
@@ -150,22 +160,37 @@ export const purchaseMineral = () => {
     const selectedColonyId = transient.selectedColonyId
     const selectedMineralId = transient.selectedMineralId
     const colonyMinerals = getColonyMinerals()
-    
+    const facilityMinerals = getFacilityMinerals()
+    const selectedFacilityId = transient.selectedFacility
     const findMineralColony = colonyMinerals.find(colonyMineral =>
-        colonyMineral.colonyId === selectedColonyId && 
+        colonyMineral.colonyId === selectedColonyId &&
         colonyMineral.mineralId === selectedMineralId)
+    const findFacilityMineralQuantity = facilityMinerals.find(facilityMineral =>
+        facilityMineral.facilityId === selectedFacilityId &&
+        facilityMineral.mineralId === selectedMineralId)
 
-    if(!findMineralColony){
+
+    if (!findMineralColony) {
         return ""
     }
+
+    if (!findFacilityMineralQuantity) {
+        return ""
+    }
+
     //subtract one ton of purchased mineral from the facility it was purchased from
     const currentQuantity = findMineralColony.quantity
+
     //add the new order object to colonyMinerals array
     const newQuantity = currentQuantity + 1
 
+    const facilityMineralQuantity = findFacilityMineralQuantity.quantity
+
+    const subtractedQuantity = facilityMineralQuantity - 1
+
     //reset the transientState object to an empty object
     setQuantityColonyMineral(selectedColonyId, selectedMineralId, newQuantity)
-    
+    setQuantityFacilityMineral(selectedFacilityId, selectedMineralId, subtractedQuantity)
     // Broadcast custom event to entire documement so that the
     // application can re-render and update state
     document.dispatchEvent(new CustomEvent("materialPurchased"))
