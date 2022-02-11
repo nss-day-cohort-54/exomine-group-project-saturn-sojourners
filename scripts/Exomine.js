@@ -51,20 +51,22 @@ export const ExomineOrderRefresh = () => {
     `
 }
 
+// clcik event for Purchase Button
 document.addEventListener(
     "click",
     (event) => {
         if (event.target.id === "orderButton") {
-            //take whats in shopping cart and make the caluculation for colonyMineral and facilityMineral quantity
             const governors = getGovernors()
+
             const transient = transientObject()
             const selectedGovernor = transient.selectedGovernor
-            //add one ton to colonyMineral and subtract one ton from facilityMineral
+
+            //find the right colony belong to selected governor
             const findGovernor = governors.find(governor => governor.id === selectedGovernor)
             const findColony = findGovernor.colonyId
             setColony(findColony)
-            //update quantity of colonyMineral and facilityMineral in database.js           
-            //GenerateHTML to display new state in DOM
+          
+            //call purchase order function
             purchaseMineral()
         }
     }

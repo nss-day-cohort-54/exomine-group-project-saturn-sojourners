@@ -1,13 +1,9 @@
-//import getter and setter functions from database.js
 import { getGovernors, setGovernor } from "./database.js";
 import { FacilitiesDropdown } from "./Facilities.js"
 
-
-
-//set the imported functions equal to a new variable
 const governorsArray = getGovernors()
 
-
+// create Governor dropdown box
 export const governorsDropdown = () => {
 
    let html = "<h2>Choose a governor</h2>"
@@ -30,8 +26,6 @@ export const governorsDropdown = () => {
    return html
 }
 
-
-
 //create a change event listener for the dropdown list
 document.addEventListener(
    "change",
@@ -40,6 +34,8 @@ document.addEventListener(
       if (itemClicked.id.startsWith("governor")) {
          const governorId = itemClicked.value
       setGovernor(parseInt(governorId))
+
+      // display facility after governor selected
       document.querySelector(".facilities").innerHTML = FacilitiesDropdown()
       document.dispatchEvent(new CustomEvent("governorSelection"))
       }
@@ -47,7 +43,3 @@ document.addEventListener(
 
 )
 
-
-
-
-//when a governor is selected, make facilities dropdown active
