@@ -170,3 +170,4 @@ export const purchaseMineral = () => {
     // application can re-render and update state
     document.dispatchEvent(new CustomEvent("materialPurchased"))
 }
+//m
