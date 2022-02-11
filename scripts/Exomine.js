@@ -6,6 +6,9 @@ import { FacilityMinerals } from "./FacilityMinerals.js"
 import { purchaseMineral } from "./database.js"
 import { ColonyMinerals } from "./ColonyMinerals.js"
 import { SpaceCart } from "./FacilityMinerals.js"
+import { transientObject } from "./database.js"
+import { getGovernors } from "./database.js"
+import { setColony } from "./database.js"
 
 export const ExomineDropdowns = () => {
     return `
@@ -53,8 +56,14 @@ document.addEventListener(
     (event) => {
         if (event.target.id === "orderButton") {
             //take whats in shopping cart and make the caluculation for colonyMineral and facilityMineral quantity
+            const governors = getGovernors()
+            const transient = transientObject()
+            const selectedGovernor = transient.selectedGovernor
             //add one ton to colonyMineral and subtract one ton from facilityMineral
-            //update quantity of colonyMineral and facilityMineral in database.js
+            const findGovernor = governors.find(governor => governor.id === selectedGovernor)
+            const findColony = findGovernor.colonyId
+            setColony(findColony)
+            //update quantity of colonyMineral and facilityMineral in database.js           
             //GenerateHTML to display new state in DOM
             purchaseMineral()
         }

@@ -3,17 +3,6 @@ import { getMinerals, getFacilities, getFacilityMinerals, transientObject, purch
 import { renderRefresh, renderCart } from "./main.js"
 
 
-
-document.addEventListener(
-    "click",
-    (event) => {
-        if (event.target.id === "orderButton") {
-            purchaseMineral()
-        }
-    }
-)
-
-
 document.addEventListener(
     "facilitySelection",
     (event) => renderRefresh()
