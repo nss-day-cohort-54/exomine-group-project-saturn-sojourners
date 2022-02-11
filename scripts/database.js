@@ -50,14 +50,14 @@ const database = {
 
     //create colonyMinerals array
     colonyMinerals: [
-        { id: 1, colonyId: 2, mineralId: 1, quantity: 0 },
-        { id: 2, colonyId: 3, mineralId: 2, quantity: 0 },
-        { id: 3, colonyId: 5, mineralId: 3, quantity: 0 },
-        { id: 4, colonyId: 2, mineralId: 3, quantity: 0 },
-        { id: 5, colonyId: 3, mineralId: 5, quantity: 0 },
-        { id: 6, colonyId: 5, mineralId: 1, quantity: 0 },
-        { id: 7, colonyId: 2, mineralId: 2, quantity: 0 },
-        { id: 8, colonyId: 3, mineralId: 3, quantity: 0 }
+        { id: 1, colonyId: 2, mineralId: 1, quantity: 2 },
+        { id: 2, colonyId: 3, mineralId: 2, quantity: 4 },
+        { id: 3, colonyId: 5, mineralId: 3, quantity: 1 },
+        { id: 4, colonyId: 2, mineralId: 3, quantity: 3 },
+        { id: 5, colonyId: 3, mineralId: 5, quantity: 5 },
+        { id: 6, colonyId: 5, mineralId: 1, quantity: 10 },
+        { id: 7, colonyId: 2, mineralId: 2, quantity: 11 },
+        { id: 8, colonyId: 3, mineralId: 3, quantity: 6 }
     ],
 
     transientState: {}
@@ -105,6 +105,10 @@ export const setGovernor = (governorId) => {
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
+export const setColony = (id) => {
+    database.transientState.selectedColonyId = id
+}
+
 export const setSelectedFacility = (id) => {
     database.transientState.selectedFacilityId = id
 }
@@ -117,8 +121,18 @@ export const setQuantityFacilityMineral = (quantity) => {
     database.transientState.facilityMineralQuantity = quantity
 }
 
-export const setQuantityColonyMineral = (quantity) => {
-    database.transientState.colonyMineralQuantity = quantity
+export const setQuantityColonyMineral = (colonyId, mineralId, quantity) => {
+    // first iterate through colonyMineral array to match mineralId and colonyId
+    const colonyMinerals = getColonyMinerals()
+    const findColonyMineral = colonyMinerals.find(colonyMineral => 
+        colonyMineral.colonyId === colonyId && 
+        colonyMineral.mineralId === mineralId)
+    const foundColonyMineralId = findColonyMineral.id
+    
+    const targetObj = database.colonyMinerals.find(colonyMineral => colonyMineral.id === foundColonyMineralId)
+    targetObj.quantity = quantity
+
+    // then set quantity to equal the new quantity
 }
 
 
@@ -133,21 +147,26 @@ export const purchaseMineral = () => {
     //create a variable newOrder, set its value as ...database.transientState}
     // const newOrder = {...database.transientState}
     const transient = transientObject()
-    const selectedFacility = transient.selectedFacility
-    const selectedGovernor = transient.selectedGovernor
-    const selectedGovernorObject = governors.find(governor => governor.id === selectedGovernor)
-    const selectedColony = selectedGovernorObject.colonyId
-
+    const selectedColonyId = transient.selectedColonyId
+    const selectedMineralId = transient.selectedMineralId
+    const colonyMinerals = getColonyMinerals()
     
+    const findMineralColony = colonyMinerals.find(colonyMineral =>
+        colonyMineral.colonyId === selectedColonyId && 
+        colonyMineral.mineralId === selectedMineralId)
 
-        //subtract one ton of purchased mineral from the facility it was purchased from
+    if(!findMineralColony){
+        return ""
+    }
+    //subtract one ton of purchased mineral from the facility it was purchased from
+    const currentQuantity = findMineralColony.quantity
+    //add the new order object to colonyMinerals array
+    const newQuantity = currentQuantity + 1
 
-        //add the new order object to colonyMinerals array
-
-        //reset the transientState object to an empty object
-
-
-        // Broadcast custom event to entire documement so that the
-        // application can re-render and update state
-        document.dispatchEvent(new CustomEvent("stateChanged"))
+    //reset the transientState object to an empty object
+    setQuantityColonyMineral(selectedColonyId, selectedMineralId, newQuantity)
+    
+    // Broadcast custom event to entire documement so that the
+    // application can re-render and update state
+    document.dispatchEvent(new CustomEvent("materialPurchased"))
 }
