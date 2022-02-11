@@ -5,6 +5,7 @@ import { FacilitiesDropdown } from "./Facilities.js"
 import { FacilityMinerals } from "./FacilityMinerals.js"
 import { purchaseMineral } from "./database.js"
 import { ColonyMinerals } from "./ColonyMinerals.js"
+import { SpaceCart } from "./FacilityMinerals.js"
 
 export const ExomineDropdowns = () => {
     return `
@@ -25,11 +26,17 @@ export const ExomineRefresh = () => {
             <h2>Facility Minerals</h2>
             ${FacilityMinerals()}
         </div>
-        <div class="purchase-button">
-            <h2>Shopping Cart</h2>
-            <button id="orderButton">Purchase Mineral</button>
-        </div>
-    </section>
+        </section>
+        `
+}
+
+export const ExomineSpaceCart = () => {
+    return `
+    <div class="purchase-button">
+        <h2>Space Cart</h2>
+        <div class="space-cart">${SpaceCart()}</div>
+        <button id="orderButton">Purchase Mineral</button>
+    </div>
     `
 }
 
