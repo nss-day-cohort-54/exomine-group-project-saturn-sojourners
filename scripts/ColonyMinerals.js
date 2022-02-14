@@ -1,6 +1,3 @@
-//displays colony name
-//displays minerals purchased by current gov and fac
-// import all of the necessary getter functions from our database module 
 
 import { getMinerals, getColonies, getFacilityMinerals, getColonyMinerals,transientObject,getGovernors  } from "./database.js";
 import { renderOrder } from "./main.js";
@@ -8,33 +5,38 @@ import { renderOrder } from "./main.js";
 document.addEventListener(
     "governorSelection",
     (event) => renderOrder()
-)
+    )
 
 document.addEventListener(
     "materialPurchased",
     (event) => renderOrder()
-)
-
+    )
+        
+//displays colony and its belonging minerals quanity
 export const ColonyMinerals = () => {
+    const governors = getGovernors()
+    const colonies = getColonies()
     const minerals = getMinerals()
-     const colonies = getColonies()
-    // const facilityMinerals = getFacilityMinerals()
     const colonyMinerals = getColonyMinerals()
     const transient = transientObject()
-    const governors = getGovernors()
 
     const selectedGovernor = transient.selectedGovernor
 
     const filterGovernor = governors.find(governor => governor.id === selectedGovernor)
+    
+    // avoid error for the initial web serve before we choose a governor
     if (!filterGovernor) {
         return ""
     }
+
     const selectedColony = filterGovernor.colonyId
     const colonyName = colonies.find(colony => colony.id === selectedColony)
 
+    // filter all mineral of a colonyId
     const filterColony = colonyMinerals.filter(colonyMineral => 
         colonyMineral.colonyId === selectedColony)
-    // return a string with name of mineral and quantity of facility
+
+    // return name of mineral from mineralId
     const findMineralName = (mineralId) => {
         return minerals.find(
             (mineral) => {

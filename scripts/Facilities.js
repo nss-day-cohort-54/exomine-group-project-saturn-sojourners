@@ -1,19 +1,12 @@
-//import getter function from database.js
-//import setter function as well
 import { getFacilities, setFacility } from "./database.js";
 
-
-
-//put the following comments' code inside select element
+//generate HTML string for facility dropdown box
 export const FacilitiesDropdown = () => {
-   //set the imported functions equal to new variables
    const facilities = getFacilities()
    
-   //use filter() to filter active facilities
+   //filter active facilities
    const activeFacilities = facilities.filter(facility => facility.active)
    
-   //use map() to display all active facilities
-   //create options tag for dropdown
    return `
    <h2>Facilities</h2>
    <select class="facilitiesDropdown" id="facility">
@@ -39,7 +32,4 @@ eventHub.addEventListener("change", event => {
    }
 })
 
-
-
-   //filter to return an array of minerals provided by that facility 
 
