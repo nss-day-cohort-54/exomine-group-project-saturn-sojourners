@@ -119,7 +119,20 @@ export const setSelectedMineral = (id) => {
     database.transientState.selectedMineralId = id
 }
 
+// sets new colony mineral into colonyMinerals array
+export const setNewColonyMineral = (id, colonyId, mineralId, quantity) => {
+    const newPurchase = {}
+
+    newPurchase.id = id
+    newPurchase.colonyId = colonyId
+    newPurchase.mineralId = mineralId
+    newPurchase.quantity = quantity
+
+    database.colonyMinerals.push(newPurchase)
+}
+
 // set new quantity to the correct facilityMineral Object
+
 export const setQuantityFacilityMineral = (facilityId, mineralId, quantity) => {
     const facilityMinerals = getFacilityMinerals()
 
@@ -169,28 +182,35 @@ export const purchaseMineral = () => {
     const findFacilityMineralQuantity = facilityMinerals.find(facilityMineral =>
         facilityMineral.facilityId === selectedFacilityId &&
         facilityMineral.mineralId === selectedMineralId)
-
-    if (!findMineralColony) {
-        return ""
-    }
-
+        
     if (!findFacilityMineralQuantity) {
         return ""
     }
-
-    const currentQuantity = findMineralColony.quantity
-    const facilityMineralQuantity = findFacilityMineralQuantity.quantity
+    // if selectedFacilityId and selectedMineralId are undefined return string
+    if(!selectedFacilityId && !selectedMineralId) {
+        return ""
+    }
+    // if our selection doesn't exist as an object in our colony minerals table
+    if (!findMineralColony) {
+        // add another object into our colony minerals table using .push
+        setNewColonyMineral(colonyMinerals.length + 1, selectedColonyId, selectedMineralId, 1)
+        document.dispatchEvent(new CustomEvent("newMaterialPurchased"))
+    } else {
+        const currentQuantity = findMineralColony.quantity
+        const facilityMineralQuantity = findFacilityMineralQuantity.quantity
+        
+        //add the new order object to colonyMinerals array
+        const newQuantity = currentQuantity + 1
+        
+        //subtract one ton of purchased mineral from the facility it was purchased from
+        const subtractedQuantity = facilityMineralQuantity - 1
     
-    //add the new order object to colonyMinerals array
-    const newQuantity = currentQuantity + 1
+        //set the newQuantity and substractedQuantity into correct objects
+        setQuantityColonyMineral(selectedColonyId, selectedMineralId, newQuantity)
+        setQuantityFacilityMineral(selectedFacilityId, selectedMineralId, subtractedQuantity)
     
-    //subtract one ton of purchased mineral from the facility it was purchased from
-    const subtractedQuantity = facilityMineralQuantity - 1
-
-    //set the newQuantity and substractedQuantity into correct objects
-    setQuantityColonyMineral(selectedColonyId, selectedMineralId, newQuantity)
-    setQuantityFacilityMineral(selectedFacilityId, selectedMineralId, subtractedQuantity)
-
-    // Broadcast custom event to re-render
-    document.dispatchEvent(new CustomEvent("materialPurchased"))
+        // Broadcast custom event to re-render
+        document.dispatchEvent(new CustomEvent("materialPurchased"))
+    }
+    
 }
