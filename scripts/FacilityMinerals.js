@@ -5,17 +5,21 @@ import { renderRefresh, renderCart } from "./main.js"
 // custom events for re-generating HTML for individual parts
 document.addEventListener(
     "facilitySelection",
-    (event) => renderRefresh()
+    () => renderRefresh()
 )
 
 document.addEventListener(
     "facilityMineralSelected",
-    (event) => renderCart()
+    () => renderCart()
 )
 
 document.addEventListener(
     "materialPurchased",
-    (event) => renderRefresh()
+    () => {
+        renderRefresh()
+        setSelectedMineral(-1)
+        renderCart()
+    }
 )
 
 // create HTML string for facilityMinerals
@@ -44,9 +48,10 @@ export const FacilityMinerals = () => {
 
     const listFacilityMinerals = filterFacility.map(facility => {
         const foundMineralName = findMineralName(facility.mineralId)
-        return `
-                <input type="radio" name="facility" value="${facility.facilityId}--${foundMineralName.id}" />${facility.quantity} tons of ${foundMineralName.material}
-           `
+            return `
+            <input type="radio" name="facility" value="${facility.facilityId}--${foundMineralName.id}" />${facility.quantity} tons of ${foundMineralName.material}
+            `
+
     }
     )
 
