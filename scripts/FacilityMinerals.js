@@ -1,6 +1,6 @@
 //purpose is to show radio buttons for minerals produced by selected facility
 import { getMinerals, getFacilities, getFacilityMinerals, transientObject, purchaseMineral, setSelectedFacility, setSelectedMineral } from "./database.js";
-import { renderRefresh, renderCart } from "./main.js"
+import { renderRefresh, renderCart, renderOrder } from "./main.js"
 
 // custom events for re-generating HTML for individual parts
 document.addEventListener(
@@ -19,6 +19,16 @@ document.addEventListener(
         renderRefresh()
         setSelectedMineral(-1)
         renderCart()
+        renderOrder()
+    }
+)
+document.addEventListener(
+    "newMaterialPurchased",
+    () => {
+        renderRefresh()
+        setSelectedMineral(-1)
+        renderCart()
+        renderOrder()
     }
 )
 
