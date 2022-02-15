@@ -157,7 +157,10 @@ export const setQuantityFacilityMineral = (facilityId, mineralId, quantity) => {
         facilityMineral.facilityId === facilityId &&
         facilityMineral.mineralId === mineralId)
 
-    findFacilityMineral.quanity = quantity
+    const foundFacilityMineralId = findFacilityMineral.id
+
+    const targetObj = database.facilityMinerals.find(facilityMineral => facilityMineral.id === foundFacilityMineralId)
+    targetObj.quantity = quantity
 
 }
 
@@ -169,7 +172,10 @@ export const setQuantityColonyMineral = (colonyId, mineralId, quantity) => {
         colonyMineral.colonyId === colonyId &&
         colonyMineral.mineralId === mineralId)
 
-    findColonyMineral.quantity = quantity
+    const foundColonyMineralId = findColonyMineral.id
+
+    const targetObj = database.colonyMinerals.find(colonyMineral => colonyMineral.id === foundColonyMineralId)
+    targetObj.quantity = quantity
 
 }
 
