@@ -179,6 +179,11 @@ export const setQuantityColonyMineral = (colonyId, mineralId, quantity) => {
 
 }
 
+export const setEmptyCart = () => {
+    database.transientState.orders = []
+}
+
+
 // add 1 ton to colonyMinerals' quantity
 // subtract 1 ton to facilityMinerals' quantity
 export const purchaseMineral = () => {

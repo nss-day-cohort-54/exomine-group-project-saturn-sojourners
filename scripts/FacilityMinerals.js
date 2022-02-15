@@ -1,5 +1,5 @@
 //purpose is to show radio buttons for minerals produced by selected facility
-import { getMinerals, getFacilities, getFacilityMinerals, transientObject, purchaseMineral, setSelectedFacility, setSelectedMineral, setOrder } from "./database.js";
+import { setEmptyCart, getMinerals, getFacilities, getFacilityMinerals, transientObject, purchaseMineral, setSelectedFacility, setSelectedMineral, setOrder } from "./database.js";
 import { renderRefresh, renderCart, renderOrder } from "./main.js"
 
 // custom events for re-generating HTML for individual parts
@@ -17,7 +17,8 @@ document.addEventListener(
     "materialPurchased",
     () => {
         renderRefresh()
-        setSelectedMineral(-1)
+        // setSelectedMineral(-1)
+        setEmptyCart()
         renderCart()
         renderOrder()
     }
@@ -120,5 +121,6 @@ export const SpaceCart = () => {
     html += "</div>"
 
     return html
+
 }
 
