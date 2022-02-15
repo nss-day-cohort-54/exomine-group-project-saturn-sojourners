@@ -1,5 +1,5 @@
 //purpose is to show radio buttons for minerals produced by selected facility
-import { getMinerals, getFacilities, getFacilityMinerals, transientObject, purchaseMineral, setSelectedFacility, setSelectedMineral } from "./database.js";
+import { getMinerals, getFacilities, getFacilityMinerals, transientObject, purchaseMineral, setSelectedFacility, setSelectedMineral, setOrder } from "./database.js";
 import { renderRefresh, renderCart, renderOrder } from "./main.js"
 
 // custom events for re-generating HTML for individual parts
@@ -83,29 +83,42 @@ document.addEventListener(
             setSelectedFacility(parseInt(selectedFacilityId))
             setSelectedMineral(parseInt(selectedMineralId))
 
+            setOrder(parseInt(selectedFacilityId), parseInt(selectedMineralId))
+
             document.dispatchEvent(new CustomEvent("facilityMineralSelected"))
         }
 })
         
 // display Space Cart
 export const SpaceCart = () => {
-    // const facilityMinerals = getFacilityMinerals()
     const minerals = getMinerals()
+    const facilities = getFacilities()
     const transient = transientObject()
-
-    // const selectedFacilityId = transient.selectedFacilityId
-    const selectedMineralId = transient.selectedMineralId
+    const orders = transient.orders
 
     const findMineralName = (mineralId) => {
         return minerals.find(mineral => mineralId === mineral.id)
     }
 
-    const foundMineralName = findMineralName(parseInt(selectedMineralId))
-
-    if (!foundMineralName) {
-        return ""
+    const findfacilityName = (facilityId) => {
+        return facilities.find(facility => facility.id === facilityId)
     }
 
-    return `<p>1 ton of ${foundMineralName.material}</p>`
+    let html = "<div>"
+    const listMineral = orders.map(order => {
+        const foundMineralName = findMineralName(order.mineralId)
+        const foundFacilityName = findfacilityName(order.facilityId)
+        
+        if (!foundMineralName) {
+            return ""
+        }
+
+        return `<p>1 ton of ${foundMineralName.material} from ${foundFacilityName.name}</p>`
+    }).join("")
+
+    html += listMineral
+    html += "</div>"
+
+    return html
 }
 

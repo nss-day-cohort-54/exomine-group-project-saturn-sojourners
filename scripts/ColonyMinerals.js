@@ -52,7 +52,7 @@ export const ColonyMinerals = () => {
         const foundMineralName = findMineralName(colony.mineralId)
             return `
            
-                <li>${colony.quantity} tons of ${foundMineralName.material}</li>
+                <div>${colony.quantity} tons of ${foundMineralName.material}</div>
             `
         }        
     )
